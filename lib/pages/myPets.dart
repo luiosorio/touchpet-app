@@ -53,7 +53,22 @@ class _myPetsX extends State<MyPets> {
         body: SingleChildScrollView(
           child: Column(children: [
             const SizedBox(height: 8),
-            Image.asset('home.png', height: 150, width: 180),
+            Image.asset('home.png', height: 130, width: 180),
+            Row(children: [
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(children: [
+                    const Icon(
+                      Icons.info,
+                      color: Colors.blueAccent,
+                    ),
+                    Container(
+                        margin: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                            "Elige la mascota para visualizar la informacion")),
+                  ]))
+            ]),
             Container(
               child: FutureBuilder<PetList>(
                 future: futurePets,
@@ -62,6 +77,11 @@ class _myPetsX extends State<MyPets> {
                     var numItems = snapshot.data?.pets.length;
                     return DataTable(
                       columns: const <DataColumn>[
+                        DataColumn(
+                            label: Text(
+                          "",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )),
                         DataColumn(
                           label: Text(
                             'Mis Mascotas',
@@ -73,6 +93,20 @@ class _myPetsX extends State<MyPets> {
                         numItems!,
                         (int index) => DataRow(
                           cells: <DataCell>[
+                            // ignore: prefer_const_constructors
+                            DataCell(
+                                Image.asset(
+                                    "examples/${snapshot.data?.pets[index].raza}.png",
+                                    height: 80,
+                                    width: 80), onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PetDetails(
+                                        pet: snapshot.data?.pets[index],
+                                        userId: identificacionCliente)),
+                              );
+                            }),
                             DataCell(
                                 Text(
                                     "${snapshot.data?.pets[index].nombre} - ${snapshot.data?.pets[index].raza} - ${snapshot.data?.pets[index].tamanio}  "),
@@ -97,20 +131,8 @@ class _myPetsX extends State<MyPets> {
                 },
               ),
             ),
-            Row(children: [
-              const Icon(
-                Icons.info,
-                color: Colors.blueAccent,
-              ),
-              Container(
-                  margin: const EdgeInsets.all(15),
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child:
-                      Text("Elige la mascota para visualizar la informacion")),
-            ]),
             Container(
                 margin: const EdgeInsets.all(15),
-                width: MediaQuery.of(context).size.width * 0.5,
                 child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -120,6 +142,14 @@ class _myPetsX extends State<MyPets> {
                                 NewPet(userId: identificacionCliente)),
                       );
                     },
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            EdgeInsets.all(15)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
                     child: const Text('Agregar Mascota'))),
             Container()
           ]),

@@ -65,12 +65,21 @@ class PetActionBoardX extends State<PetActionBoard> {
         });
   }
 
+  ButtonStyle get buttonStyle => ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18.0),
+      )));
+
   @override
   Widget build(BuildContext context) {
+    const double buttonWidth = 120;
+
     return Scaffold(
       appBar: AppBar(
           title: const Text(
-        "Detalles de la Mascota",
+        "Simulador de Tapete",
         style: TextStyle(fontWeight: FontWeight.bold),
       )),
       bottomNavigationBar: BarraNavegacion(),
@@ -80,99 +89,132 @@ class PetActionBoardX extends State<PetActionBoard> {
             margin: const EdgeInsets.all(15),
             child: Column(children: [
               const SizedBox(height: 8),
-              Image.asset('pet1.png', height: 150, width: 180),
-              Text("Nombre: ${pet1.nombre} - ${pet1.raza}"),
+              Image.asset("examples/${pet1.raza}.png", width: 130),
+              ListTile(
+                title: Text(
+                  pet1.nombre,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                subtitle: Text(pet1.raza),
+                leading: Icon(
+                  Icons.pets,
+                  color: Colors.blue[500],
+                ),
+              )
             ])),
-        Container(
-          margin: const EdgeInsets.all(15),
-          // ignore: prefer_const_literals_to_create_immutables
-          child: Column(children: [
-            const Text('Seleccione un boton para registrar una accion:'),
-          ]),
-        ),
         Row(children: [
           Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Comida");
-                  },
-                  child: const Text("Comida"))),
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Agua");
-                  },
-                  child: const Text("Agua"))),
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Afuera");
-                  },
-                  child: const Text("Afuera")))
-        ]),
-        Row(children: [
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Aburrido");
-                  },
-                  child: const Text("Aburrido"))),
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Jugar");
-                  },
-                  child: const Text("Jugar"))),
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Mimos");
-                  },
-                  child: const Text("Mimos")))
-        ]),
-        Row(children: [
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Miedo");
-                  },
-                  child: const Text("Miedo"))),
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("Si");
-                  },
-                  child: const Text("Si"))),
-          Container(
-              margin: const EdgeInsets.all(15),
-              width: 160,
-              child: ElevatedButton(
-                  onPressed: () {
-                    callCreatePetAction("No");
-                  },
-                  child: const Text("No")))
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(children: [
+                const Icon(
+                  Icons.info,
+                  color: Colors.blueAccent,
+                ),
+                Container(
+                    margin: const EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child:
+                        Text("Presione un botón para registrar una accion:")),
+              ]))
         ]),
         Container(
-          margin: const EdgeInsets.all(15),
-          // ignore: prefer_const_literals_to_create_immutables
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("tapete1.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          width: 550,
+          height: 270,
+          padding: const EdgeInsets.all(25),
           child: Column(children: [
-            Text(successMesage),
+            Row(children: [
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Comida");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Comida"))),
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Agua");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Agua"))),
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Afuera");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Afuera")))
+            ]),
+            Row(children: [
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Aburrido");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Aburrido"))),
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Jugar");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Jugar"))),
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Mimos");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Mimos")))
+            ]),
+            Row(children: [
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Miedo");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Miedo"))),
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("Si");
+                      },
+                      style: buttonStyle,
+                      child: const Text("Si"))),
+              Container(
+                  margin: const EdgeInsets.all(15),
+                  width: buttonWidth,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        callCreatePetAction("No");
+                      },
+                      style: buttonStyle,
+                      child: const Text("No")))
+            ]),
           ]),
         ),
       ])),

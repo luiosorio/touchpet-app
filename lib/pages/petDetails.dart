@@ -67,14 +67,60 @@ class PetDetailsX extends State<PetDetails> {
             margin: const EdgeInsets.all(15),
             child: Column(children: [
               const SizedBox(height: 8),
-              Image.asset('pet1.png', height: 150, width: 180),
-              Text("Nombre: ${pet1.nombre}"),
-              Text("Raza: ${pet1.raza}"),
-              Text("Tamaño: ${pet1.tamanio}"),
-              Text("Personalidad: ${pet1.personalidad}"),
-              Text("Fecha Cumpleaños: ${pet1.fechaCumpleanios}"),
-              Text("Peso: ${pet1.kgs} Kilos"),
+              Image.asset("examples/${pet1.raza}.png", width: 130),
             ])),
+        Container(
+          margin: const EdgeInsets.all(15),
+          child: Card(
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    pet1.nombre,
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  subtitle: Text(pet1.raza),
+                  leading: Icon(
+                    Icons.pets,
+                    color: Colors.blue[500],
+                  ),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    pet1.tamanio,
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  leading: Icon(
+                    Icons.stacked_bar_chart,
+                    color: Colors.blue[500],
+                  ),
+                ),
+                ListTile(
+                  title: Text(pet1.personalidad),
+                  leading: Icon(
+                    Icons.psychology,
+                    color: Colors.blue[500],
+                  ),
+                ),
+                ListTile(
+                  title: Text(pet1.fechaCumpleanios),
+                  leading: Icon(
+                    Icons.cake,
+                    color: Colors.blue[500],
+                  ),
+                ),
+                ListTile(
+                  title: Text("${pet1.kgs} kilos"),
+                  leading: Icon(
+                    Icons.scale,
+                    color: Colors.blue[500],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
         Row(children: [
           Container(
               margin: const EdgeInsets.all(15),
@@ -84,6 +130,13 @@ class PetDetailsX extends State<PetDetails> {
                     futurePetActions = fetchPetActions(userId1, pet1.nombre);
                     setState(() {});
                   },
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ))),
                   child: const Icon(Icons.refresh))),
           Container(
               margin: const EdgeInsets.all(15),
@@ -97,6 +150,13 @@ class PetDetailsX extends State<PetDetails> {
                               PetActionBoard(pet: pet1, userId: userId1)),
                     );
                   },
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(15)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ))),
                   child: const Text("Simular Acciones")))
         ]),
         FutureBuilder<PetActionList>(
@@ -108,7 +168,7 @@ class PetDetailsX extends State<PetDetails> {
                 columns: const <DataColumn>[
                   DataColumn(
                     label: Text(
-                      'Acciones',
+                      'Historial de Acciones',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -117,10 +177,16 @@ class PetDetailsX extends State<PetDetails> {
                   numItems!,
                   (int index) => DataRow(
                     cells: <DataCell>[
-                      DataCell(
-                        Text(
-                            "${snapshot.data?.actions[index].fecha} ${snapshot.data?.actions[index].hora} - ${snapshot.data?.actions[index].accion} "),
-                      )
+                      DataCell(ListTile(
+                        title: Text(
+                          "${snapshot.data?.actions[index].fecha} ${snapshot.data?.actions[index].hora} - ${snapshot.data?.actions[index].accion} ",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        leading: Icon(
+                          Icons.calendar_month,
+                          color: Colors.blue[500],
+                        ),
+                      ))
                     ],
                   ),
                 ),

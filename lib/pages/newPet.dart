@@ -87,7 +87,21 @@ class NewPet extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(children: [
         const SizedBox(height: 8),
-        Image.asset('template.png', height: 150, width: 180),
+        Image.asset('home.png', height: 130, width: 180),
+        Row(children: [
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(children: [
+                const Icon(
+                  Icons.info,
+                  color: Colors.blueAccent,
+                ),
+                Container(
+                    margin: const EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Text("Diligencia los datos para crear tu mascota")),
+              ]))
+        ]),
         const SizedBox(
           height: 10,
           width: 0.5,
@@ -133,7 +147,6 @@ class NewPet extends StatelessWidget {
         ),
         Container(
             margin: const EdgeInsets.all(15),
-            width: MediaQuery.of(context).size.width * 0.5,
             child: ElevatedButton(
                 onPressed: () {
                   // recolectamos la data de todos los campos y la enviamos al metodo de creacion de mascota
@@ -157,10 +170,17 @@ class NewPet extends StatelessWidget {
                             else
                               {
                                 _showMyDialog(context, "Error",
-                                    "Error creando la mascota :(")
+                                    "Error creando la mascota, verifique la información ingresada.")
                               }
                           });
                 },
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        EdgeInsets.all(15)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ))),
                 child: const Text('Crear Mascota'))),
       ])),
     );
